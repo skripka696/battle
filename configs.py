@@ -1,6 +1,5 @@
 import argparse
 import random
-# import logging
 
 strategy_data = {
         0: 'random',
@@ -12,41 +11,41 @@ strategy_data = {
 def set_army_count(army=None):
     if army and army >= 2:
         army_count = army
-        print('Army count set {}'.format(army_count))
+        print('**Army count set {}**'.format(army_count))
     else:
         army_count = random.randint(2, 10)
-        print('Army must be int and n>=2. Set {} number of army'.format(army_count))
+        print('**Army must be int and n>=2. Set {} number of army**'.format(army_count))
     return army_count
 
 
 def set_strategy(strategy=None):
     if strategy and strategy >= 0 and strategy <=2:
         strategy_type = strategy_data.get(strategy)
-        print('Strategy set {}'.format(strategy_type))
+        print('**Strategy set {}**'.format(strategy_type))
     else:
         strategy_type = strategy_data.get(random.randint(1, 3))
-        print('Strategy must be choice between 0-random, 1-weakest, 2-strongest.'
-              ' Set {} strategy'.format(strategy_type))
+        print('**Strategy must be choice between 0-random, 1-weakest, 2-strongest.'
+              ' Set {} strategy**'.format(strategy_type))
     return strategy_type
 
 
 def set_squads_count(squads=None):
     if squads and squads >= 2:
         squads_count = squads
-        print('Squads count set {}'.format(squads_count))
+        print('**Squads count set {}**'.format(squads_count))
     else:
         army_count = random.randint(2, 10)
-        print('Squads must be int and n>=2. Set {} number of squads'.format(army_count))
+        print('**Squads must be int and n>=2. Set {} number of squads**'.format(army_count))
     return army_count
 
 
 def set_unit_count_for_squads(units=None):
     if units and units >= 5 and units <= 10:
         units_count = units
-        print('Units count set {}'.format(units_count))
+        print('**Units count set {}**'.format(units_count))
     else:
         units_count = random.randint(5, 10)
-        print('Units must be 5 <= n <= 10. Set {} number of squads'.format(units_count))
+        print('**Units must be 5 <= n <= 10. Set {} number of squads**'.format(units_count))
     return units_count
 
 
@@ -68,9 +67,8 @@ def set_game_config():
     args = parser.parse_args()
     game_data = dict(
         army=set_army_count(args.army),
-        starategy=set_strategy(args.strategy),
-        squards=set_squads_count(args.squads_count),
+        strategy=set_strategy(args.strategy),
+        squads=set_squads_count(args.squads_count),
         units=set_unit_count_for_squads(args.units_count))
 
-    print(game_data)
     return game_data

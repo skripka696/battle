@@ -1,9 +1,10 @@
-from random import random
+import random
+from datetime import datetime
 
 from unit.unit import Unit
 
 
-class Solid(Unit):
+class Soldier(Unit):
     """
     Soldiers are units that have an additional property:
 
@@ -13,18 +14,36 @@ class Solid(Unit):
     experience | [0-50] | Represents the soldier experience
 
     """
-    def __init__(self, recharge, health, experience):
+    def __init__(self, health, name, attack_time=None, recharge=None):
         self.recharge = recharge
         self.health = health
-        self.experience = experience
+        self.experience = 0
+        self.attack_time = attack_time
+        self.name = name
+        self.type = 'Soldier'
 
     def attack(self):
-        return 0.5*(1 + self.health/100)*random(50 + self.experience, 100) / 100
+        return 0.5 * (1 + self.health/100) * random.randint(50 + self.experience, 100) / 100
 
     def damage(self):
-        """Сумма ущерба, нанесенного солдату, рассчитывается следующим образом:"""
         damage = 0.05 + self.experience / 100
-        return self.calculate_damage(damage, self.health)
+        return damage
+        # return self.calculate_damage(damage, self.health)
+
+    @property
+    def is_alive(self):
+        return self.health > 0
+
+    @property
+    def check_recharge(self):
+        if self.attack_time:
+            time_delta = self.attack_time - datetime.now()
+            if time_delta >= self.recharge:
+                return True
+            else:
+                return False
+        else:
+            return False
 
     def recalculate_health(self):
         damage = self.damage()

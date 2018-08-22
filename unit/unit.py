@@ -6,7 +6,7 @@ class Unit:
     """
 
     @abstractmethod
-    def set_health(self):
+    def count_health(self):
         """
         Represents the health of the unit
         :return: range % [0-100]
@@ -14,7 +14,7 @@ class Unit:
         pass
 
     @abstractmethod
-    def set_recharge(self):
+    def check_recharge(self):
         """
         Represents the number of ms required to recharge the unit for an attack
         :return: range [100-2000]
@@ -47,22 +47,6 @@ class Unit:
         pass
 
     @abstractmethod
-    def infliction_attack(self):
-        """
-        Inflicted attack
-        :return: percent attack_value
-        """
-        pass
-
-    @abstractmethod
-    def infliction_damage(self):
-        """
-        Inflicted damage
-        :return: percent damage_value
-        """
-        pass
-
-    @abstractmethod
     def recalculate_health(self):
         pass
 
@@ -71,3 +55,14 @@ class Unit:
 
     def _percentage(percent, whole):
         return int((percent * whole) / 100.0)
+
+
+class SubUnit:
+    @abstractmethod
+    def generate_unit(self):
+        """
+        generation of nested units for different entities,
+        such as Vehicle, Squads and Army
+        :return:
+        """
+        pass
