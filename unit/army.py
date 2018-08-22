@@ -1,12 +1,8 @@
 import datetime
 import random
-import time
 from unit.squards import Squards
 from unit.unit import SubUnit
 from utils import set_squads_name
-
-from battle.unit.solider import Soldier
-from battle.unit.vehicle import Vehicle
 
 
 class Army(SubUnit):
@@ -27,7 +23,6 @@ class Army(SubUnit):
                 Squards(set_squads_name(), self.strategy, units))
 
     def attack(self, opponent):
-        time.sleep(1)
         print('********* ATTACK STARTED *********')
         attacking_squads = self.get_squad_by_strategy(self.strategy, self.squads)
         print('attacking squad - {}'.format(attacking_squads.name))
@@ -45,7 +40,7 @@ class Army(SubUnit):
 
         elif attacking_squad and attacking_squads < opponent_damage:
             damage_caused = attacking_squads - opponent_damage
-            self.set_damage(damage_caused)
+            self.set_damage(damage_caused, opponent_squad)
             self.set_recharge_time(attacking_squads, attacking_time)
             self.set_recharge_time(opponent_squad, attacking_time)
 
@@ -62,7 +57,7 @@ class Army(SubUnit):
                     operator.attack_time = attacking_time
 
     def set_damage(self, damage, squad):
-        print('--------')
+        pass
 
     def set_null_health(self, squad):
         for unit in squad.units:
@@ -107,5 +102,7 @@ class Army(SubUnit):
 
     @property
     def health(self):
-        return sum([squad.health
-                for squad in self.squads])
+        return sum([
+            squad.health
+            for squad in self.squads
+            ])

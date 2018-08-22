@@ -60,5 +60,7 @@ class Squards(SubUnit):
     def is_alive(self):
         return sum([unit.is_alive for unit in self.units]) > 0
 
-    def damage_distribution(self):
+    def damage_distribution(self, damage):
+        # damage_per_unit = damage/len(self.units)
         pass
+

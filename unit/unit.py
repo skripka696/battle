@@ -1,4 +1,5 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
+
 
 class Unit:
     """
@@ -21,14 +22,6 @@ class Unit:
         """
         pass
 
-    @abstractmethod
-    def set_name(self):
-        """
-        Unit name
-        :return: unit_name
-        """
-        raise NotImplementedError('set_name must be implemented in inherited class')
-
 
     @abstractmethod
     def attack(self):
@@ -36,7 +29,7 @@ class Unit:
         Attack logic
         :return: attack_value
         """
-        pass
+        raise NotImplementedError('attack must be implemented in inherited class')
 
     @abstractmethod
     def damage(self):
@@ -44,7 +37,7 @@ class Unit:
         Damage logic
         :return:  damage_value
         """
-        pass
+        raise NotImplementedError('damage must be implemented in inherited class')
 
     @abstractmethod
     def recalculate_health(self):
@@ -65,4 +58,4 @@ class SubUnit:
         such as Vehicle, Squads and Army
         :return:
         """
-        pass
+        raise NotImplementedError('generate_unit must be implemented in inherited class')
