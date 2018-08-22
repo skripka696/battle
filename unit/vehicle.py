@@ -27,11 +27,15 @@ class Vehicle(Unit, SubUnit):
         self.type = 'Vehicle'
 
     def attack(self):
-        return 0.5 * (1 + self.health / 100) * count_gavg(
-            [operator.attack()
-             for operator in self.operators
-             if operator.is_alive and operator.check_recharge()]
-        )
+        attack_sum = [
+            operator.attack()
+            for operator in self.operators
+            if operator.is_alive and operator.check_recharge
+        ]
+        if attack_sum:
+            return 0.5 * (1 + self.health / 100) * count_gavg(attack_sum)
+        else:
+            return 0
 
     def add_unit(self):
         for item in range(self.operators_count):
@@ -51,19 +55,19 @@ class Vehicle(Unit, SubUnit):
     def check_recharge(self):
         if self.attack_time:
             time_delta = self.attack_time - datetime.now()
-            if time_delta >= self.recharge:
+            if time_delta.microseconds >= self.recharge:
                 return True
             else:
                 return False
         else:
-            return False
+            return True
 
     def count_health(self):
         if self.is_alive:
             return (self.count_operators_health + self.health)/2
 
     def damage(self):
-        damage = 0.1 + sum([x.experience/100 for x in self.operators])
+        damage = 0.1 + sum([x.experience/100 for x in self.operators if x.check_recharge])
         return damage
 
     def damage_distribution(self):

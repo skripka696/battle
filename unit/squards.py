@@ -32,18 +32,24 @@ class Squards(SubUnit):
                 Vehicle(random.randint(50, 100), set_vehicle_name(),  random.randint(1, 3)))
 
     def attack(self):
-        return count_gavg(
-            [unit.attack()
-             for unit in self.units
-             if unit.is_alive and unit.check_recharge]
-        )
+        attack_sum = [
+            unit.attack()
+            for unit in self.units
+            if unit.is_alive and unit.check_recharge
+        ]
+        if attack_sum:
+            return count_gavg(attack_sum)
+        else:
+            return 0
 
     def damage(self):
-        return count_gavg(
-            [unit.damage()
+        damage_sum = [unit.damage()
              for unit in self.units
              if unit.is_alive and unit.check_recharge]
-        )
+        if damage_sum:
+            return count_gavg(damage_sum)
+        else:
+            return 0
 
     @property
     def health(self):

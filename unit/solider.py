@@ -28,7 +28,6 @@ class Soldier(Unit):
     def damage(self):
         damage = 0.05 + self.experience / 100
         return damage
-        # return self.calculate_damage(damage, self.health)
 
     @property
     def is_alive(self):
@@ -38,12 +37,12 @@ class Soldier(Unit):
     def check_recharge(self):
         if self.attack_time:
             time_delta = self.attack_time - datetime.now()
-            if time_delta >= self.recharge:
+            if time_delta.microseconds >= self.recharge:
                 return True
             else:
                 return False
         else:
-            return False
+            return True
 
     def recalculate_health(self):
         damage = self.damage()

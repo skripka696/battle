@@ -1,6 +1,7 @@
 import argparse
 import random
 
+import time
 from configs import set_game_config
 
 from generate_data import army_generator
@@ -42,15 +43,19 @@ class Game:
             return opponents
 
     def game_stop(self, army):
-        pass
+        for i in range(3):
+            time.sleep(1)
+            print('.')
+        print('GAME_STOP. Win - {} army'.format(army.name))
+        return
 
     def start_game(self):
         print('********* START GAME *********')
         self.generate_army()
         print('your game strategy is {}'.format(self.strategy))
         print('Generate {} armies'.format(len(self.armies)))
-        # while not self.game_finished:
-        while self.round_count < 5:
+        while not self.game_finished:
+        # while self.round_count < 5:
             self.round_count += 1
             print('START ROUND {}'.format(self.round_count))
             for army in self.armies:
@@ -58,11 +63,9 @@ class Game:
                 if not opponents:
                     self.game_finished = True
                     self.game_stop(army)
-                opponent = random.choice(self.choice_opponent(army))
-                army.attack(opponent)
-
-                print(opponent.name)
-
+                else:
+                    opponent = random.choice(self.choice_opponent(army))
+                    army.attack(opponent)
 
 def main():
     game_data = set_game_config()
